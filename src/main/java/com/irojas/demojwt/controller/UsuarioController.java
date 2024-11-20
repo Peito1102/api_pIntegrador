@@ -1,34 +1,25 @@
-package com.irojas.demojwt.Demo;
+package com.irojas.demojwt.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.irojas.demojwt.User.User;
 import com.irojas.demojwt.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/url/user")
 @RequiredArgsConstructor
-public class DemoController {
+public class UsuarioController {
 	
-	@Autowired
-	private UserService userService;
+
     
-    @GetMapping(value = "demo")
-    public String welcome()
-    {
-        return "saludos bro";
-    }
     
-    @GetMapping("/lista")
-	public List<User> lista(){
-		return userService.listaTodos();
-	}
+   
     
 }

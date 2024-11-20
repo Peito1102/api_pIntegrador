@@ -1,4 +1,4 @@
-package com.irojas.demojwt.User;
+package com.irojas.demojwt.entity;
 
 import java.util.Collection;
 import java.util.Date;

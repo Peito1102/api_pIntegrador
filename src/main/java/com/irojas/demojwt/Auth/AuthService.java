@@ -11,9 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.irojas.demojwt.Jwt.JwtService;
-import com.irojas.demojwt.User.Role;
-import com.irojas.demojwt.User.User;
-import com.irojas.demojwt.User.UserRepository;
+import com.irojas.demojwt.entity.Role;
+import com.irojas.demojwt.entity.User;
+import com.irojas.demojwt.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
