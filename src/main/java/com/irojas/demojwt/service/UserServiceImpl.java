@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String buscarPorUsername(String username) {
 		
-		String mensaje="no hay";
+		String mensaje="";
 		
 		Optional<User> user=userRepository.findByUsername(username);
 		if (user.isPresent()) {
