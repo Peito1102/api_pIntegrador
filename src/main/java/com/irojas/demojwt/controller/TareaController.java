@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.irojas.demojwt.entity.Proyecto;
 import com.irojas.demojwt.entity.Tarea;
+import com.irojas.demojwt.entity.TareaDTO;
 import com.irojas.demojwt.service.ProyectoService;
 import com.irojas.demojwt.service.TareaService;
 
@@ -33,8 +34,8 @@ public class TareaController {
     }
     
     @PostMapping("/insertar")
-    public ResponseEntity<String> insertarTarea(@RequestBody Tarea tarea) {
-        return ResponseEntity.ok(tareaService.registroTarea(tarea));
+    public ResponseEntity<String> insertarTarea(@RequestBody TareaDTO tareaDTO) {
+        return ResponseEntity.ok(tareaService.registroTarea(tareaDTO));
     }
     
     @PutMapping("/actualizar")
@@ -45,6 +46,11 @@ public class TareaController {
     @DeleteMapping("/eliminar/{id}")
     public void eliminarTarea(@PathVariable Integer id) {
         tareaService.eliminarTarea(id);
+    }
+    
+    @PostMapping("/buscarTareasPorProyecto/{id}")
+    public List<Tarea> buscarTareasPorProyecto(@PathVariable Integer id) {
+        return tareaService.listaPorProyecto(id);
     }
 
 }

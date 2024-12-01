@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.irojas.demojwt.Auth.AuthResponse;
 import com.irojas.demojwt.entity.Proyecto;
+import com.irojas.demojwt.entity.ProyectoDTO;
 import com.irojas.demojwt.service.ProyectoService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,8 @@ public class ProyectoController {
     }
     
     @PostMapping("/insertar")
-    public ResponseEntity<String> insertarProyecto(@RequestBody Proyecto proyecto) {
-        return ResponseEntity.ok(proyectoService.registroProyecto(proyecto));
+    public ResponseEntity<String> insertarProyecto(@RequestBody ProyectoDTO proyectoDTO) {
+        return ResponseEntity.ok(proyectoService.registroProyecto(proyectoDTO));
     }
     
     @PutMapping("/actualizar")
@@ -44,6 +45,11 @@ public class ProyectoController {
     @DeleteMapping("/eliminar/{id}")
     public void eliminarProyecto(@PathVariable Integer id) {
         proyectoService.eliminarProyecto(id);
+    }
+    
+    @PostMapping("/buscarProyectosPorUsuario/{id}")
+    public List<Proyecto> buscarProyectosPorUsuario(@PathVariable Integer id) {
+        return proyectoService.listaPorUsuario(id);
     }
 
 }

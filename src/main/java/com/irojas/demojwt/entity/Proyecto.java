@@ -37,6 +37,7 @@ public class Proyecto {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
+	@JsonIgnore
     private User usuario;
 	
 
