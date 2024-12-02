@@ -33,7 +33,7 @@ public class ProyectoController {
     }
     
     @PostMapping("/insertar")
-    public ResponseEntity<String> insertarProyecto(@RequestBody ProyectoDTO proyectoDTO) {
+    public ResponseEntity<ProyectoDTO> insertarProyecto(@RequestBody ProyectoDTO proyectoDTO) {
         return ResponseEntity.ok(proyectoService.registroProyecto(proyectoDTO));
     }
     
