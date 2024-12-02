@@ -35,7 +35,7 @@ public class TareaServiceImpl implements TareaService {
 	}
 
 	@Override
-	public String registroTarea(TareaDTO tareaDTO) {
+	public TareaDTO registroTarea(TareaDTO tareaDTO) {
 		
 		String fechaString =tareaDTO.getFechaVencimiento(); 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -61,7 +61,7 @@ public class TareaServiceImpl implements TareaService {
 		
 		
 		tareaRepository.save(tarea);
-		return "Tarea Registrada";
+		return tareaDTO;
 	}
 
 	@Override

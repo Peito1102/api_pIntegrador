@@ -25,7 +25,7 @@ public class ProyectoServiceImpl implements ProyectoService {
 	}
 
 	@Override
-	public String registroProyecto(ProyectoDTO proyectoDTO) {
+	public ProyectoDTO registroProyecto(ProyectoDTO proyectoDTO) {
 		
 		User usuario= new User();
 		usuario.setId(proyectoDTO.getIdUsuario());
@@ -35,7 +35,7 @@ public class ProyectoServiceImpl implements ProyectoService {
 		
 		
 		proyectoRepository.save(proyecto);
-		return "Proyecto Registrado";
+		return proyectoDTO;
 	}
 
 	@Override

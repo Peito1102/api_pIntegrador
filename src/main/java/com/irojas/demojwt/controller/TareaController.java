@@ -34,7 +34,7 @@ public class TareaController {
     }
     
     @PostMapping("/insertar")
-    public ResponseEntity<String> insertarTarea(@RequestBody TareaDTO tareaDTO) {
+    public ResponseEntity<TareaDTO> insertarTarea(@RequestBody TareaDTO tareaDTO) {
         return ResponseEntity.ok(tareaService.registroTarea(tareaDTO));
     }
     
