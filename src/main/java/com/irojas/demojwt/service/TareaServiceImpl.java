@@ -13,21 +13,12 @@ import com.irojas.demojwt.entity.Proyecto;
 import com.irojas.demojwt.entity.Tarea;
 import com.irojas.demojwt.entity.TareaDTO;
 import com.irojas.demojwt.entity.User;
-import com.irojas.demojwt.repository.ProyectoRepository;
 import com.irojas.demojwt.repository.TareaRepository;
-import com.irojas.demojwt.repository.UserRepository;
 
 @Service
 public class TareaServiceImpl implements TareaService {
 	@Autowired
 	private TareaRepository tareaRepository;
-	
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private ProyectoRepository proyectoRepository;
 
 	@Override
 	public List<Tarea> listaTodo() {
@@ -37,9 +28,11 @@ public class TareaServiceImpl implements TareaService {
 	@Override
 	public TareaDTO registroTarea(TareaDTO tareaDTO) {
 		
+		Date fecha = null;
+		if (tareaDTO.getFechaVencimiento() != null) {
 		String fechaString =tareaDTO.getFechaVencimiento(); 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date fecha=null;
+        
 		try {
 			fecha = formato.parse(fechaString);
 		} catch (ParseException e) {
@@ -47,20 +40,33 @@ public class TareaServiceImpl implements TareaService {
 			e.printStackTrace();
 		}
 		
+		} 
+		
+		
 		User usuario= new User();
 		usuario.setId(tareaDTO.getIdUsuario());
+		
 		Proyecto proyecto= new Proyecto();
 		proyecto.setId(tareaDTO.getIdProyecto());
-		Tarea tarea= new Tarea();
-		tarea.setDescripcion(tareaDTO.getDescripcion());
-		tarea.setNombre(tareaDTO.getNombre());
-		tarea.setPrioridad(tareaDTO.getPrioridad());
-		tarea.setFechaVencimiento(fecha);
-		tarea.setProyecto(proyecto);
-		tarea.setUsuario(usuario);
+		
+		Optional<Tarea> posibleProyecto = tareaRepository.findByProyecto(proyecto).stream().filter(t -> t.getNombre().equals(tareaDTO.getNombre())).findFirst();
+
+		if(posibleProyecto.isPresent()) {
+			tareaDTO.setNombre(null);
+		} else {
+			Tarea tarea= new Tarea();
+			tarea.setDescripcion(tareaDTO.getDescripcion());
+			tarea.setNombre(tareaDTO.getNombre());
+			tarea.setPrioridad(tareaDTO.getPrioridad());
+			tarea.setFechaVencimiento(fecha);
+			tarea.setProyecto(proyecto);
+			tarea.setUsuario(usuario);
 		
 		
-		tareaRepository.save(tarea);
+			tareaRepository.save(tarea);
+		}
+		
+		
 		return tareaDTO;
 	}
 

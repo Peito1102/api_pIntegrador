@@ -29,12 +29,21 @@ public class ProyectoServiceImpl implements ProyectoService {
 		
 		User usuario= new User();
 		usuario.setId(proyectoDTO.getIdUsuario());
-		Proyecto proyecto= new Proyecto();
-		proyecto.setNombre(proyectoDTO.getNombre());
-		proyecto.setUsuario(usuario);
+		
+		Optional<Proyecto> posibleProyecto = proyectoRepository.findByUsuario(usuario).stream().filter(p -> p.getNombre().equals(proyectoDTO.getNombre())).findFirst();
+		
+		if(posibleProyecto.isPresent()) {
+			proyectoDTO.setNombre(null);
+		}
+		else {
+			Proyecto proyecto= new Proyecto();
+			proyecto.setNombre(proyectoDTO.getNombre());
+			proyecto.setUsuario(usuario);
 		
 		
-		proyectoRepository.save(proyecto);
+			proyectoRepository.save(proyecto);
+		}
+		
 		return proyectoDTO;
 	}
 
