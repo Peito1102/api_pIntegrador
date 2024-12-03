@@ -1,5 +1,7 @@
 package com.irojas.demojwt.Config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,25 +24,29 @@ public class SecurityConfig {
     private final AuthenticationProvider authProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-    {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .csrf(csrf -> 
-                csrf
-                .disable())
+            .cors(cors -> cors.configurationSource(request -> {
+                var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+                corsConfig.setAllowedOrigins(List.of("http://localhost:4200"));
+                corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                corsConfig.setAllowedHeaders(List.of("*"));
+                corsConfig.setAllowCredentials(true);
+                return corsConfig;
+            }))
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authRequest ->
-              authRequest
-                .requestMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
-                )
-            .sessionManagement(sessionManager->
-                sessionManager 
-                  .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                authRequest
+                    .requestMatchers("/auth/**").permitAll()
+                    .anyRequest().authenticated()
+            )
+            .sessionManagement(sessionManager ->
+                sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
             .authenticationProvider(authProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
-            
-            
     }
+
 
 }
