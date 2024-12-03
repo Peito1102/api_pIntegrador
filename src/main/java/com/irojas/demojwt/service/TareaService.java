@@ -13,7 +13,7 @@ public interface TareaService {
 	public void eliminarTarea(Integer id);
 	
 
-	public List<Tarea> listaPorProyecto(Integer id);
+	public List<Tarea> listaPorProyecto(Integer idProyecto);
 	
 
 }

@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.irojas.demojwt.Jwt.JwtService;
 import com.irojas.demojwt.entity.Proyecto;
 import com.irojas.demojwt.entity.Tarea;
 import com.irojas.demojwt.entity.TareaDTO;
@@ -26,6 +28,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TareaController {
 	@Autowired
+    private JwtService jwtService;
+	
+	@Autowired
     private TareaService tareaService;
 	
 	@GetMapping("/listar")
@@ -34,7 +39,13 @@ public class TareaController {
     }
     
     @PostMapping("/insertar")
-    public ResponseEntity<TareaDTO> insertarTarea(@RequestBody TareaDTO tareaDTO) {
+    public ResponseEntity<TareaDTO> insertarTarea(@RequestBody TareaDTO tareaDTO, @RequestHeader("Authorization") String token) {
+    	String tokenSinBearer = token.replace("Bearer ", "");
+    	
+    	Integer usuarioId = jwtService.getUserIdFromToken(tokenSinBearer);
+    	
+    	tareaDTO.setIdUsuario(usuarioId);
+    	
         return ResponseEntity.ok(tareaService.registroTarea(tareaDTO));
     }
     
@@ -48,7 +59,7 @@ public class TareaController {
         tareaService.eliminarTarea(id);
     }
     
-    @PostMapping("/buscarTareasPorProyecto/{id}")
+    @GetMapping("/buscarTareasPorProyecto/{id}")
     public List<Tarea> buscarTareasPorProyecto(@PathVariable Integer id) {
         return tareaService.listaPorProyecto(id);
     }

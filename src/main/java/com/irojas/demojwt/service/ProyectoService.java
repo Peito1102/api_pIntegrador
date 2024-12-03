@@ -12,7 +12,7 @@ public interface ProyectoService {
 	public String actualizarProyecto(Proyecto proyecto);
 	public void eliminarProyecto(Integer id);
 	
-	public List<Proyecto> listaPorUsuario(Integer id);
+	public List<Proyecto> listaPorUsuario(Integer idUsuario);
 	
 	
 }

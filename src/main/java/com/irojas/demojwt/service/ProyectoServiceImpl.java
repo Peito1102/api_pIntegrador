@@ -6,12 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.irojas.demojwt.controller.UsuarioController;
 import com.irojas.demojwt.entity.Proyecto;
 import com.irojas.demojwt.entity.ProyectoDTO;
 import com.irojas.demojwt.entity.User;
 import com.irojas.demojwt.repository.ProyectoRepository;
-import com.irojas.demojwt.repository.UserRepository;
 
 @Service
 public class ProyectoServiceImpl implements ProyectoService {
@@ -68,10 +66,10 @@ public class ProyectoServiceImpl implements ProyectoService {
 	}
 
 	@Override
-	public List<Proyecto> listaPorUsuario(Integer id) {
+	public List<Proyecto> listaPorUsuario(Integer idUsuario) {
 		
 		User usuario= new User();
-		usuario.setId(id);
+		usuario.setId(idUsuario);
 		return proyectoRepository.findByUsuario(usuario);
 	}
 

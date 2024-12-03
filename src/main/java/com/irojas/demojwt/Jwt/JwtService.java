@@ -79,4 +79,7 @@ public class JwtService {
         return getExpiration(token).before(new Date());
     }
     
+    public Integer getUserIdFromToken(String token) {
+        return getClaim(token, claims -> claims.get("id", Integer.class));
+    }
 }

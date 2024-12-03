@@ -93,9 +93,9 @@ public class TareaServiceImpl implements TareaService {
 	}
 
 	@Override
-	public List<Tarea> listaPorProyecto(Integer id) {
+	public List<Tarea> listaPorProyecto(Integer idProyecto) {
 		Proyecto proyecto= new Proyecto();
-		proyecto.setId(id);
+		proyecto.setId(idProyecto);
 		return tareaRepository.findByProyecto(proyecto);
 	}
 	
