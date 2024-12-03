@@ -31,7 +31,7 @@ public class TareaServiceImpl implements TareaService {
 		Date fecha = null;
 		if (tareaDTO.getFechaVencimiento() != null) {
 		String fechaString =tareaDTO.getFechaVencimiento(); 
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
 		try {
 			fecha = formato.parse(fechaString);

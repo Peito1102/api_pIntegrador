@@ -42,7 +42,7 @@ public class Tarea {
     private String prioridad;
     
     @Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss",timezone = "America/Lima")
 	@Column(nullable = true)
 	private Date fechaVencimiento;
     
