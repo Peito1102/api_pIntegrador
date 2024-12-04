@@ -10,4 +10,5 @@ import com.irojas.demojwt.entity.User;
 public interface ProyectoRepository extends JpaRepository<Proyecto,Integer> {
 
 	List<Proyecto> findByUsuario(User usuario);
+	
 }

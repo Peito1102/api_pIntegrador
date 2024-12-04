@@ -14,5 +14,6 @@ public interface ProyectoService {
 	
 	public List<Proyecto> listaPorUsuario(Integer idUsuario);
 	
+	public List<Proyecto> filtroProyecto(Integer usuarioId,String nombre);
 	
 }

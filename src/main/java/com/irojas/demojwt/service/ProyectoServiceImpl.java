@@ -2,6 +2,9 @@ package com.irojas.demojwt.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,6 +74,16 @@ public class ProyectoServiceImpl implements ProyectoService {
 		User usuario= new User();
 		usuario.setId(idUsuario);
 		return proyectoRepository.findByUsuario(usuario);
+	}
+
+	@Override
+	public List<Proyecto> filtroProyecto(Integer usuarioId, String nombre) {
+		User usuario= new User();
+		usuario.setId(usuarioId);
+		List<Proyecto> listaFiltrada = proyectoRepository.findByUsuario(usuario).stream().filter(p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
+		
+		
+		return listaFiltrada;
 	}
 
 }

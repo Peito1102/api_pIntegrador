@@ -65,5 +65,12 @@ public class ProyectoController {
     	
         return proyectoService.listaPorUsuario(usuarioId);
     }
+    
+    @GetMapping("/filtroProyecto/{nombre}")
+    public List<Proyecto> filtroProyecto(@PathVariable String nombre,@RequestHeader("Authorization") String token) {
+    	String tokenSinBearer = token.replace("Bearer ", "");
+    	Integer usuarioId = jwtService.getUserIdFromToken(tokenSinBearer);
+        return proyectoService.filtroProyecto(usuarioId,nombre);
+    }
 
 }
