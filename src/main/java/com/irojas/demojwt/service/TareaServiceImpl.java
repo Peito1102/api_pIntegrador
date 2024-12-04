@@ -49,14 +49,14 @@ public class TareaServiceImpl implements TareaService {
 		Proyecto proyecto= new Proyecto();
 		proyecto.setId(tareaDTO.getIdProyecto());
 		
-		Optional<Tarea> posibleProyecto = tareaRepository.findByProyecto(proyecto).stream().filter(t -> t.getNombre().equals(tareaDTO.getNombre())).findFirst();
+		Optional<Tarea> posibleProyecto = tareaRepository.findByProyecto(proyecto).stream().filter(t -> t.getNombre().trim().equals(tareaDTO.getNombre().trim())).findFirst();
 
 		if(posibleProyecto.isPresent()) {
 			tareaDTO.setNombre(null);
 		} else {
 			Tarea tarea= new Tarea();
 			tarea.setDescripcion(tareaDTO.getDescripcion());
-			tarea.setNombre(tareaDTO.getNombre());
+			tarea.setNombre(tareaDTO.getNombre().trim());
 			tarea.setPrioridad(tareaDTO.getPrioridad());
 			tarea.setFechaVencimiento(fecha);
 			tarea.setProyecto(proyecto);
